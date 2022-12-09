@@ -1,19 +1,19 @@
-// Hospital Management System
+package mini_project;
 
-package project_01;
-import java.util.*;
-class patient
+import java.util.Scanner;
+
+class patient //patient is our node therefore we create class patient
 { 
 	int id; 
-String name; 
-int age; 
-String place;
-int room;
-String aDate;
-String dDate;
-String status;
-patient next; //?????
-	
+	String name; 
+	int age; 
+	String place;
+	int room;
+	String aDate;
+	String dDate;
+	String status;
+	patient next;
+		
 } 
 
 class HospitalManagement 
@@ -22,7 +22,18 @@ class HospitalManagement
 
 void addData(int id, String name, int age,String place,int room, String aDate,String dDate, String status) 
 { 
-	patient newPatient = new patient(); 
+	patient trav=head;
+	boolean b= true ;
+		while(trav!=null) {
+		if(trav.id==id) {
+			b=false;
+			System.out.println("this ID already exists.");
+			break;
+		}
+		trav=trav.next;
+		}
+		if(b) {
+	patient newPatient = new patient(); //Node head=new Node();//patient class object
 	newPatient.id = id; 
 	newPatient.name = name; 
 	newPatient.age = age;
@@ -47,6 +58,7 @@ void addData(int id, String name, int age,String place,int room, String aDate,St
         temp.next = newPatient; 
     } 
 } 
+}
 
 void showData() 
 { 
@@ -69,13 +81,22 @@ void SearchData(int id)
         return; 
     } 
 	patient temp=head;
-	 if(temp.id == id) {
+	boolean b=true;
+	try {	
+	while(b) {if(temp.id == id) {
 		 System.out.println("PATIENT_ID : " + temp.id + "| PATIENT_NAME : " + temp.name + "| PATIENT_AGE : " + temp.age+ "| PATIENT_ADDRESS : "+ temp.place +"| PATIENT_ADDIMATED_DATE : "+ temp.aDate+"| PATIENT_DISCHARGED_DATE : "+ temp.dDate+"| PATIENT_STATUS : "+temp.status);
+		 b=false;
 	 }
-	 else
-		 System.out.println("Data not found");
+	 temp=temp.next;
+	
 }
-void removeData(int id) 
+	}catch(Exception e) {
+		System.out.println("data is not found!!!!");
+	}
+	
+}
+
+	 void removeData(int id) 
 { 
 	if(head==null){ 
         System.out.println("NO PATIENT IS ADDIMITED TILL NOW!!!!!"); 
@@ -95,20 +116,19 @@ void removeData(int id)
     if (temp == null) return; 
     prev.next = temp.next; 
 }
-void updateData(int id,String dDate, String status)
-{ 
+void updateData(int id,String dDate, String status){ 
     
-	if(head==null){//when list is empty 
+	if(head==null){ 
         System.out.println("NO PATIENT IS ADDIMITED TILL NOW!!!!!"); 
         return; 
     } 
-    if(id==head.id){ //first node
+    if(id==head.id){ 
     	head.id = id;  
     	head.dDate=dDate; 
     	head.status=status;
         return; 
     } 
-    patient temp=head; //for other nodes
+    patient temp=head; 
     while(temp.next!=null){ 
         if(temp.next.id==id){ 
         	patient t=temp.next; 
@@ -118,11 +138,9 @@ void updateData(int id,String dDate, String status)
         } 
         temp=temp.next; 
     } 
-    if(temp==null)
-    	System.out.println("Record not found");
 }
 }
-public class Project01
+public class project_1
 { 
 public static void main(String[] args) 
 { 
@@ -189,11 +207,13 @@ public static void main(String[] args)
         case 5:
         	System.out.print("Enter Id : "); 
             id = sc.nextInt(); 
+            
             System.out.print("Enter Discharged Date : "); 
             dDate = sc.next();  
+            
             System.out.print("Enter Status : "); 
             status = sc.next(); 
-            H.updateData(id,dDate,status);
+            H.updateData(id, dDate, status); 
             break; 
         case 0: 
         	
