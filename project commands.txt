@@ -1,0 +1,9 @@
+frontend- open in vs code
+cd userportal
+npm install
+npm audit fix   -> if vulnerabilities
+npm audit fix --force
+npm start
+
+
+ 
